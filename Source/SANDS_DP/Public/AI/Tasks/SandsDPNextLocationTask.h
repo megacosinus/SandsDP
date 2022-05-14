@@ -21,7 +21,10 @@ public:
 
 protected:
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = AI)
-    float Radius = 1000.0f;
+    bool UseRandomPoint = true;
+
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = AI, meta = (EditCondition = "!UseRandomPoint"))
+    float RadiusOfRandomPoint = 1000.0f;
 
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = AI)
     FBlackboardKeySelector AimLocationKey;

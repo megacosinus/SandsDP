@@ -36,9 +36,16 @@ EBTNodeResult::Type USandsDPNextLocationTask::ExecuteTask(UBehaviorTreeComponent
         Location = CenterActor->GetActorLocation();
     }
 
-    const bool Found = NavSys->GetRandomReachablePointInRadius(Location, Radius, NavLocation);
-    if (!Found)
-        return EBTNodeResult::Failed;
+    if (UseRandomPoint)
+    {
+        const bool Found = NavSys->GetRandomReachablePointInRadius(Location, RadiusOfRandomPoint, NavLocation);
+        if (!Found)
+            return EBTNodeResult::Failed;
+    }
+    else
+    {
+        NavLocation.Location = Location;
+    }
 
     Blackboard->SetValueAsVector(AimLocationKey.SelectedKeyName, NavLocation.Location);
 
