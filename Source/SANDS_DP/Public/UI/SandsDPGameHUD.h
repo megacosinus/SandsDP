@@ -24,6 +24,9 @@ protected:
     UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "UI")
     TSubclassOf<UUserWidget> TacticalPauseWidgetClass;
 
+    UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "UI")
+    TSubclassOf<UUserWidget> MenuBeforeBattleWidgetClass;
+
     virtual void BeginPlay() override;
 
 private:

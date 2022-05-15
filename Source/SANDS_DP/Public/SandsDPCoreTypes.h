@@ -9,6 +9,7 @@ enum class ESandsDPMatchState : uint8
     InRealtimeGame,
     InTacticalPause,
     InMenuPause,
+    InMenuBeforeBattlePause,
     GameOver
 };
 
