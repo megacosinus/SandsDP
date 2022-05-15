@@ -3,6 +3,7 @@
 #include "UI/SandsDPMenuBeforeBattleWidget.h"
 #include "Gameframework/GameModeBase.h"
 #include "Components/Button.h"
+#include "GameFramework/Actor.h"
 #include "Player/SandsDPPlayerController.h"
 #include "Player/SandsDPPlayerCharacter.h"
 #include "Kismet/GameplayStatics.h"

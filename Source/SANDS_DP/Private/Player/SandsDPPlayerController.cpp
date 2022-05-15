@@ -121,13 +121,13 @@ void ASandsDPPlayerController::ZoomOut()
 
 void ASandsDPPlayerController::SetGamePaused()
 {
-    if (!GetWorld() || !GetWorld()->GetAuthGameMode())
-        return;
-
     static bool bIsPaused = 0;
     bIsPaused = !bIsPaused;
 
     SetPause(bIsPaused);
+
+    if (!GetWorld() || !GetWorld()->GetAuthGameMode())
+        return;
 
     const auto GameMode = Cast<ASandsDPGameModeBase>(GetWorld()->GetAuthGameMode());
     if (GameMode)
