@@ -27,7 +27,8 @@ public class SANDS_DP : ModuleRules
             "SANDS_DP/Public/Components",
             "SANDS_DP/Public/AI",
             "SANDS_DP/Public/AI/Tasks",
-            "SANDS_DP/Public/AI/Services"
+            "SANDS_DP/Public/AI/Services",
+            "SANDS_DP/Public/AI/EQS"
         });
 
         // Uncomment if you are using Slate UI

@@ -18,7 +18,8 @@ void USandsDPFindEnemyService::TickNode(UBehaviorTreeComponent& OwnerComp, uint8
     if (Blackboard)
     {
         const auto Controller = OwnerComp.GetAIOwner();
-        const auto PerceptionComponent = SandsDPUtils::GetSandsDPPlayerComponent<USandsDPAIPerceptionComponent>(Controller);
+        // const auto PerceptionComponent = SandsDPUtils::GetSandsDPPlayerComponent<USandsDPAIPerceptionComponent>(Controller);
+        const auto PerceptionComponent = Controller->FindComponentByClass<USandsDPAIPerceptionComponent>(); // try to use engine native template
         if (PerceptionComponent)
         {
             Blackboard->SetValueAsObject(EnemyActorKey.SelectedKeyName, PerceptionComponent->GetClosestEnemy());
