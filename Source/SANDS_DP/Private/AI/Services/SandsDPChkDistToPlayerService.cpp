@@ -24,7 +24,7 @@ void USandsDPChkDistToPlayerService::TickNode(UBehaviorTreeComponent& OwnerComp,
             return;
 
         const auto PerceptionComponent = Controller->FindComponentByClass<USandsDPAIPerceptionComponent>(); // try to use engine native template
-        if (PerceptionComponent)
+        if (PerceptionComponent && PerceptionComponent->GetClosestEnemy())
         {
             const auto CurrentDistance = (PerceptionComponent->GetClosestEnemy()->GetActorLocation() - Pawn->GetActorLocation()).Size();
 
