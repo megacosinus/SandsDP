@@ -30,6 +30,8 @@ protected:
     virtual void SetupInputComponent() override;
     // End PlayerController interface
 
+    virtual void BeginPlay() override;
+
     /** Navigate player to the current mouse cursor location. */
     void MoveToMouseCursor();
 
@@ -47,4 +49,7 @@ protected:
     void ZoomOut();
 
     void SetGamePaused();
+
+private:
+    void OnMatchStateChanged(ESandsDPMatchState State);
 };

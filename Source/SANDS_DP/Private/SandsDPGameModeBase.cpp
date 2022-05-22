@@ -4,6 +4,9 @@
 #include "Player/SandsDPBaseCharacter.h"
 #include "Player/SandsDPPlayerController.h"
 #include "UI/SandsDPGameHUD.h"
+#include "Kismet/GameplayStatics.h"
+
+DEFINE_LOG_CATEGORY_STATIC(LogSandsDPGameModeBase, All, All);
 
 ASandsDPGameModeBase::ASandsDPGameModeBase()
 {
@@ -28,4 +31,19 @@ void ASandsDPGameModeBase::SetMatchState(ESandsDPMatchState State)
 
     // Broadcast about changed match state:
     OnMatchStateChanged.Broadcast(MatchState);
+
+    UE_LOG(LogSandsDPGameModeBase, Display, TEXT("Match State changed"));
+
+    // setting to pause game when ESandsDPMatchState::InTacticalPause is in void ASandsDPPlayerController::SetGamePaused()
+    if (State == ESandsDPMatchState::InMenuBeforeBattlePause)
+    {
+        if (!GetWorld() || !GetWorld()->GetAuthGameMode())
+            return;
+
+        auto Controller = UGameplayStatics::GetPlayerController(GetWorld(), 0);
+        if (!Controller)
+            return;
+
+        Controller->SetPause(true);
+    }
 }

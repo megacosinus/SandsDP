@@ -61,9 +61,9 @@ void ASandsDPPlayerCharacter::Tick(float DeltaSecond)
 {
     Super::Tick(DeltaSecond);
 
-    if (CursorToWorld != nullptr)
+    if (CursorToWorld)
     {
-        if (APlayerController* PC = Cast<APlayerController>(GetController()))
+        if (auto PC = Cast<APlayerController>(GetController()))
         {
             static FVector NavigationPoint = FVector(0.f, 0.f, 0.f); // location where character must go
             FHitResult TraceHitResult;
@@ -92,6 +92,12 @@ void ASandsDPPlayerCharacter::NewNavigationPoint(FVector WhereToGo)
 {
     if (WhereToGo != CurrentPointLocation)
         CurrentPointLocation = WhereToGo;
+
+    auto PC = Cast<APlayerController>(GetController());
+    if (PC->IsPaused() == 1)
+    {
+        CalculateNavigationPath(WhereToGo);
+    }
 }
 
 void ASandsDPPlayerCharacter::CalculateNavigationPath(FVector WhereToGo)

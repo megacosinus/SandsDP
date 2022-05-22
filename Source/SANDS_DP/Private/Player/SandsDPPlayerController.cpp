@@ -12,7 +12,7 @@ ASandsDPPlayerController::ASandsDPPlayerController()
 {
     bShowMouseCursor = true;
     bShouldPerformFullTickWhenPaused = true;
-    if (GetWorld() != NULL)
+    if (GetWorld())
         GetWorld()->bIsCameraMoveableWhenPaused = true; // Prevent bluring camera when paused
 }
 
@@ -34,6 +34,19 @@ void ASandsDPPlayerController::SetupInputComponent()
     // support touch devices
     InputComponent->BindTouch(EInputEvent::IE_Pressed, this, &ASandsDPPlayerController::MoveToTouchLocation);
     InputComponent->BindTouch(EInputEvent::IE_Repeat, this, &ASandsDPPlayerController::MoveToTouchLocation);
+}
+
+void ASandsDPPlayerController::BeginPlay()
+{
+    Super::BeginPlay();
+
+    if (GetWorld())
+    {
+        if (const auto GameMode = Cast<ASandsDPGameModeBase>(GetWorld()->GetAuthGameMode()))
+        {
+            GameMode->OnMatchStateChanged.AddUObject(this, &ASandsDPPlayerController::OnMatchStateChanged);
+        }
+    }
 }
 
 void ASandsDPPlayerController::MoveToMouseCursor()
@@ -134,4 +147,17 @@ void ASandsDPPlayerController::SetGamePaused()
     {
         GameMode->SetMatchState(bIsPaused ? ESandsDPMatchState::InTacticalPause : ESandsDPMatchState::InRealtimeGame);
     }
+}
+
+void ASandsDPPlayerController::OnMatchStateChanged(ESandsDPMatchState State)
+{
+    // @TODO need to make it work:
+    /*if (State != ESandsDPMatchState::InRealtimeGame || State != ESandsDPMatchState::InTacticalPause)
+    {
+        SetInputMode(FInputModeUIOnly());
+    }
+    else
+    {
+        SetInputMode(FInputModeGameAndUI());
+    }*/
 }

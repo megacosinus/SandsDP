@@ -34,9 +34,8 @@ AActor* USandsDPAIPerceptionComponent::GetClosestEnemy() const
         // const auto HealthComponent = SandsDPUtils::GetSandsDPPlayerComponent<USTUHealthComponent>(PercieveActor);
 
         const auto PercievePawn = Cast<APawn>(PercieveActor);
-        // const auto AreEnemies = PercievePawn && SandsDPUtils::AreEnemies(Controller, PercievePawn->Controller); // bool
 
-        // if (HealthComponent && !HealthComponent->IsDead() && AreEnemies) // check if enemies or not in AreEnemies
+        if (PercievePawn->IsPlayerControlled())
         {
             const auto CurrentDistance = (PercieveActor->GetActorLocation() - Pawn->GetActorLocation()).Size();
             if (CurrentDistance < BestDistance)

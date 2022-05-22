@@ -3,7 +3,6 @@
 #include "UI/SandsDPGameHUD.h"
 #include "UI/SandsDPBaseWidget.h"
 #include "SandsDPGameModeBase.h"
-#include "Kismet/GameplayStatics.h"
 
 void ASandsDPGameHUD::DrawHUD()
 {
@@ -55,17 +54,5 @@ void ASandsDPGameHUD::OnMatchStateChanged(ESandsDPMatchState State)
     {
         CurrentWidget->SetVisibility(ESlateVisibility::Visible);
         CurrentWidget->Show();
-    }
-
-    if (State == ESandsDPMatchState::InMenuBeforeBattlePause)
-    {
-        if (!GetWorld() || !GetWorld()->GetAuthGameMode())
-            return;
-
-        auto Controller = UGameplayStatics::GetPlayerController(GetWorld(), 0);
-        if (!Controller)
-            return;
-
-        Controller->SetPause(true);
     }
 }
