@@ -160,8 +160,8 @@ void ASandsDPPlayerCharacter::DrawNavigationMesh()
 
     // This code is for landing Navigatoin Mesh to ground
     FCollisionQueryParams CollisionParams;
-    CollisionParams.AddIgnoredActor(GetOwner());    // ignore player
-    CollisionParams.bReturnPhysicalMaterial = true; // передаём физический материал, в который попали
+    CollisionParams.AddIgnoredActor(GetOwner()); // ignore player
+    CollisionParams.bReturnPhysicalMaterial = true;
     FHitResult HitResult;
 
     if (!GetWorld())
