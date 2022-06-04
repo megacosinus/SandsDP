@@ -18,8 +18,6 @@ class SANDS_DP_API ASandsDPGameModeBase : public AGameModeBase
 public:
     ASandsDPGameModeBase();
 
-    virtual void StartPlay() override;
-
     FOnMatchStateChangedSignature OnMatchStateChanged;
 
     ESandsDPMatchState GetMatchState() const { return MatchState; };

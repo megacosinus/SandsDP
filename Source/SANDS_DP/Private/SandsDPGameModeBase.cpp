@@ -8,19 +8,7 @@
 
 DEFINE_LOG_CATEGORY_STATIC(LogSandsDPGameModeBase, All, All);
 
-ASandsDPGameModeBase::ASandsDPGameModeBase()
-{
-    DefaultPawnClass = ASandsDPBaseCharacter::StaticClass();
-    PlayerControllerClass = ASandsDPPlayerController::StaticClass();
-    HUDClass = ASandsDPGameHUD::StaticClass();
-}
-
-void ASandsDPGameModeBase::StartPlay()
-{
-    Super::StartPlay();
-
-    SetMatchState(ESandsDPMatchState::InRealtimeGame);
-}
+ASandsDPGameModeBase::ASandsDPGameModeBase() {}
 
 void ASandsDPGameModeBase::SetMatchState(ESandsDPMatchState State)
 {

@@ -27,6 +27,9 @@ protected:
     UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "UI")
     TSubclassOf<UUserWidget> MenuBeforeBattleWidgetClass;
 
+    UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "UI")
+    TSubclassOf<UUserWidget> InBattleWidgetClass;
+
     virtual void BeginPlay() override;
 
 private:

@@ -16,6 +16,7 @@ void ASandsDPGameHUD::BeginPlay()
     GameWidgets.Add(ESandsDPMatchState::InRealtimeGame, CreateWidget<USandsDPBaseWidget>(GetWorld(), PlayerHUDWidgetClass));
     GameWidgets.Add(ESandsDPMatchState::InTacticalPause, CreateWidget<USandsDPBaseWidget>(GetWorld(), TacticalPauseWidgetClass));
     GameWidgets.Add(ESandsDPMatchState::InMenuBeforeBattlePause, CreateWidget<USandsDPBaseWidget>(GetWorld(), MenuBeforeBattleWidgetClass));
+    GameWidgets.Add(ESandsDPMatchState::InBattle, CreateWidget<USandsDPBaseWidget>(GetWorld(), InBattleWidgetClass));
 
     // add every widget into viewport and make them hidden:
     for (auto GameWidgetPair : GameWidgets)
