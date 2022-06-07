@@ -88,6 +88,8 @@ void ASandsDPPlayerController::SetNewMoveDestination(const FVector DestLocation)
     {
         // flag for drawing navigation line
         auto DPPlayerCharacter = Cast<ASandsDPPlayerCharacter>(GetPawn());
+        if (!DPPlayerCharacter)
+            return;
         DPPlayerCharacter->NewNavigationPoint(DestLocation);
 
         UAIBlueprintHelperLibrary::SimpleMoveToLocation(this, DestLocation);

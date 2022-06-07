@@ -9,16 +9,23 @@
 #include "Kismet/GameplayStatics.h"
 #include "SandsDPGameModeBase.h"
 
-bool USandsDPMenuBeforeBattleWidget::Initialize()
+void USandsDPMenuBeforeBattleWidget::NativeOnInitialized()
 {
-    const auto InitStatus = Super::Initialize();
+    Super::NativeOnInitialized();
+    if (ToTheBattleButton)
+    {
+        ToTheBattleButton->OnClicked.AddDynamic(this, &USandsDPMenuBeforeBattleWidget::ToTheBattle);
+    }
 
     if (RetreatButton)
     {
         RetreatButton->OnClicked.AddDynamic(this, &USandsDPMenuBeforeBattleWidget::OnRetreat);
     }
+}
 
-    return InitStatus;
+void USandsDPMenuBeforeBattleWidget::ToTheBattle()
+{
+    UGameplayStatics::OpenLevel(this, LevelName);
 }
 
 void USandsDPMenuBeforeBattleWidget::OnRetreat()
