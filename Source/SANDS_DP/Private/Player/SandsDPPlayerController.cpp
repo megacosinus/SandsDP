@@ -115,7 +115,11 @@ void ASandsDPPlayerController::ZoomIn()
     if (GetPawn())
     {
         auto DPPlayerCharacter = Cast<ASandsDPPlayerCharacter>(GetPawn());
+        if (!DPPlayerCharacter)
+            return;
         USpringArmComponent* CameraBoom = DPPlayerCharacter->GetCameraBoom();
+        if (!CameraBoom)
+            return;
         float const CameraBoomLength = CameraBoom->TargetArmLength;
         float const NewCameraBoomLength = FMath::Clamp((CameraBoomLength + 100.0f), MinimumCameraBoomLength, MaximumCameraBoomLength);
         CameraBoom->TargetArmLength = (NewCameraBoomLength);
@@ -127,7 +131,11 @@ void ASandsDPPlayerController::ZoomOut()
     if (GetPawn())
     {
         auto DPPlayerCharacter = Cast<ASandsDPPlayerCharacter>(GetPawn());
+        if (!DPPlayerCharacter)
+            return;
         USpringArmComponent* CameraBoom = DPPlayerCharacter->GetCameraBoom();
+        if (!CameraBoom)
+            return;
         float const CameraBoomLength = CameraBoom->TargetArmLength;
         float const NewCameraBoomLength = FMath::Clamp((CameraBoomLength - 100.0f), MinimumCameraBoomLength, MaximumCameraBoomLength);
         CameraBoom->TargetArmLength = (NewCameraBoomLength);
