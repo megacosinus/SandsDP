@@ -4,6 +4,7 @@
 #include "Camera/CameraComponent.h"
 #include "Components/InputComponent.h"
 #include "GameFramework/SpringArmComponent.h"
+#include "Components/SceneComponent.h"
 #include "GameFramework/PlayerController.h"
 
 // Sets default values
@@ -17,13 +18,18 @@ ASandDPIsometricCamera::ASandDPIsometricCamera()
     bUseControllerRotationYaw = false;
     bUseControllerRotationRoll = false;
 
+    // Creating scene component
+    Scene = CreateDefaultSubobject<USceneComponent>("Scene");
+    Scene->SetupAttachment(GetRootComponent());
+
     // Creating a camera boom
     CameraBoom = CreateDefaultSubobject<USpringArmComponent>("CameraBoom"); // Creating SpringArm
-    CameraBoom->SetupAttachment(GetRootComponent());                        // Attaching SpringArm to character
+    CameraBoom->SetupAttachment(Scene);                                     // Attaching SpringArm to character
     CameraBoom->SetUsingAbsoluteRotation(true);                             // Don't want arm to rotate when character does
     CameraBoom->bDoCollisionTest = false;                                   // Don't want to pull camera in when it collides with level
     CameraBoom->SetTickableWhenPaused(true);
-    // Code for Zooming In and Out in the SandsDPPlayerController
+    CameraBoom->SetWorldRotation(FRotator(0.0f, -36.5f, -45.0f));
+    CameraBoom->TargetArmLength = 1000.0f;
 
     // Creating a camera
     TopDownCameraComponent = CreateDefaultSubobject<UCameraComponent>("TopDownCameraComponent"); // Creating Camera
@@ -49,14 +55,12 @@ void ASandDPIsometricCamera::SetupPlayerInputComponent(UInputComponent* PlayerIn
 {
     Super::SetupPlayerInputComponent(PlayerInputComponent);
 
-    InputComponent->BindAxis("MoveRight", this, &ASandDPIsometricCamera::MoveRight);
+    InputComponent->BindAxis("MoveRight", this, &ThisClass::MoveRight);
 }
 
 void ASandDPIsometricCamera::MoveRight(float Value)
 {
     if (Value == 0.0f)
         return;
-    // CameraBoom->SetRelativeLocation((CameraBoom->GetRelativeLocation()) + FVector(Value, 0.0f, 0.0f));
-    TopDownCameraComponent->SetWorldLocation((TopDownCameraComponent->GetComponentLocation()) + FVector(Value * 10.0f, 0.0f, 0.0f));
-    // AddMovementInput(GetActorForwardVector(), Value);
+    Scene->SetWorldLocation((Scene->GetComponentLocation()) + FVector(Value * 10.0f, 0.0f, 0.0f));
 }

@@ -15,6 +15,8 @@ public:
     // Sets default values for this pawn's properties
     ASandDPIsometricCamera();
 
+    /** Returns SceneComponent subobject **/
+    FORCEINLINE class USceneComponent* GetSceneComponent() const { return Scene; }
     /** Returns TopDownCameraComponent subobject **/
     FORCEINLINE class UCameraComponent* GetTopDownCameraComponent() const { return TopDownCameraComponent; }
     /** Returns CameraBoom subobject **/
@@ -23,10 +25,13 @@ public:
 
 private:
     UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = Camera, meta = (AllowPrivateAccess = "true"))
-    class USpringArmComponent* CameraBoom; // Adding Springarm to Base Character
+    class USceneComponent* Scene;
 
     UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = Camera, meta = (AllowPrivateAccess = "true"))
-    class UCameraComponent* TopDownCameraComponent; // Adding Camera to Base Character
+    class USpringArmComponent* CameraBoom; // Adding Springarm
+
+    UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = Camera, meta = (AllowPrivateAccess = "true"))
+    class UCameraComponent* TopDownCameraComponent; // Adding Camera
 
     void MoveRight(float Value);
 

@@ -8,29 +8,24 @@ void ASandsDPPlayerControllerGlobal::SetupInputComponent()
 {
     Super::SetupInputComponent();
 
-    InputComponent->BindAxis("CameraYaw", this, &ASandsDPPlayerControllerGlobal::YawCamera);
-    InputComponent->BindAction("RotateCamera", IE_Pressed, this, &ASandsDPPlayerControllerGlobal::StartCameraRotation);
-    InputComponent->BindAction("RotateCamera", IE_Released, this, &ASandsDPPlayerControllerGlobal::StopCameraRotation);
+    InputComponent->BindAxis("CameraYaw", this, &ThisClass::YawCamera);
+    InputComponent->BindAction("RotateCamera", IE_Pressed, this, &ThisClass::StartCameraRotation);
+    InputComponent->BindAction("RotateCamera", IE_Released, this, &ThisClass::StopCameraRotation);
 }
 
 void ASandsDPPlayerControllerGlobal::YawCamera(float AxisValue)
 {
     if (bCameraView)
     {
-        FRotator NewRotation = FRotator(0.0f, 0.0f, 0.0f);
-        NewRotation.Yaw += AxisValue;
-
         if (!GetPawn())
             return;
-
         auto PlayerCharacter = Cast<ASandsDPGlobalCharacter>(GetPawn());
         if (!PlayerCharacter)
             return;
         auto SpringArm = PlayerCharacter->GetCameraBoom();
         if (!SpringArm)
             return;
-        // SringArm->AddLocalRotation(NewRotation);
-        SpringArm->AddWorldRotation(NewRotation);
+        SpringArm->AddWorldRotation(FRotator(0.0f, AxisValue, 0.0f));
     }
 }
 
