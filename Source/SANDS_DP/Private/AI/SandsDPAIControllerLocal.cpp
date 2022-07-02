@@ -16,13 +16,7 @@ void ASandsDPAIControllerLocal::OnPossess(APawn* InPawn)
         RunBehaviorTree(AICharacter->BehaviorTreeAsset);
     }
 
-    UE_LOG(LogAIController, Display, TEXT("Team number %d"), static_cast<uint8>(GetGenericTeamId()));
-    GetWorldTimerManager().SetTimer(TeamIDHandle, this, &ThisClass::LogTeamNumber, 2.0f, true);
-}
-
-void ASandsDPAIControllerLocal::LogTeamNumber()
-{
-    UE_LOG(LogAIController, Display, TEXT("Team number %d"), static_cast<uint8>(GetGenericTeamId()));
+    // UE_LOG(LogAIController, Display, TEXT("Team number %d"), static_cast<uint8>(GetGenericTeamId()));
 }
 
 ETeamAttitude::Type ASandsDPAIControllerLocal::GetTeamAttitudeTowards(const AActor& Other) const

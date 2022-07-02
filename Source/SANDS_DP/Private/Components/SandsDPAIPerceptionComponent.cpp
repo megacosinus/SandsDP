@@ -3,7 +3,6 @@
 #include "Components/SandsDPAIPerceptionComponent.h"
 #include "AIController.h"
 #include "SandsDPUtils.h"
-//#include "Components/STUHealthComponent.h" // чтобы узнать, живой ли персонаж
 #include "Perception/AISense_Sight.h"
 #include "Perception/AISense_Damage.h"
 
@@ -26,7 +25,7 @@ AActor* USandsDPAIPerceptionComponent::GetClosestEnemy() const
     if (!Pawn)
         return nullptr;
 
-    float BestDistance = MAX_FLT; // в переменную запихнули максимальное число из готового макроса
+    float BestDistance = MAX_FLT; // maximum float form macros
     AActor* BestPawn = nullptr;
 
     for (const auto PercieveActor : PercieveActors)
@@ -35,14 +34,11 @@ AActor* USandsDPAIPerceptionComponent::GetClosestEnemy() const
 
         const auto PercievePawn = Cast<APawn>(PercieveActor);
 
-        if (PercievePawn->IsPlayerControlled())
+        const auto CurrentDistance = (PercieveActor->GetActorLocation() - Pawn->GetActorLocation()).Size();
+        if (CurrentDistance < BestDistance)
         {
-            const auto CurrentDistance = (PercieveActor->GetActorLocation() - Pawn->GetActorLocation()).Size();
-            if (CurrentDistance < BestDistance)
-            {
-                BestDistance = CurrentDistance;
-                BestPawn = PercieveActor;
-            }
+            BestDistance = CurrentDistance;
+            BestPawn = PercieveActor;
         }
     }
 

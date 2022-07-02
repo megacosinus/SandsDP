@@ -16,10 +16,10 @@ void ASandsDPAICharacterLocal::BeginPlay()
 
     if (SDPTeamAttitude == ESDPTeamAttitude::Ally)
     {
-        AIController->SetTeam(TeamNum1);
+        AIController->SetTeam(1);
     }
     else if (SDPTeamAttitude == ESDPTeamAttitude::Enemy)
     {
-        AIController->SetTeam(TeamNum2);
+        AIController->SetTeam(2);
     }
 }

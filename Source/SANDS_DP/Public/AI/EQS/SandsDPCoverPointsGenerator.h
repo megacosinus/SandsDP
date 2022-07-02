@@ -27,7 +27,8 @@ protected:
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = AI, meta = (ClampMin = "30.0", ClampMax = "500.0"))
     float DistanceFromCover = 50.0f;
 
-    virtual void GenerateItems(FEnvQueryInstance& QueryInstance) const override;
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = AI)
+    FName EnemyActorKeyName = "EnemyActor";
 
-    virtual class UWorld* GetWorld() const override;
+    virtual void GenerateItems(FEnvQueryInstance& QueryInstance) const override;
 };

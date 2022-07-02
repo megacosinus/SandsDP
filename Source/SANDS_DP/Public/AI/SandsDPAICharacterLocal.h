@@ -24,9 +24,6 @@ public:
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Team")
     ESDPTeamAttitude SDPTeamAttitude = ESDPTeamAttitude::Ally;
 
-    uint8 TeamNum1 = 1;
-    uint8 TeamNum2 = 2;
-
 protected:
     virtual void BeginPlay() override;
 };
