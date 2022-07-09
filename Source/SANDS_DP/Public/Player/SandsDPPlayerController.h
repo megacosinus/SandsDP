@@ -5,10 +5,11 @@
 #include "CoreMinimal.h"
 #include "GameFramework/PlayerController.h"
 #include "SandsDPCoreTypes.h"
+#include "GenericTeamAgentInterface.h"
 #include "SandsDPPlayerController.generated.h"
 
 UCLASS()
-class SANDS_DP_API ASandsDPPlayerController : public APlayerController
+class SANDS_DP_API ASandsDPPlayerController : public APlayerController, public IGenericTeamAgentInterface
 {
 
     GENERATED_BODY()
@@ -22,6 +23,10 @@ private:
 
     UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = Camera, meta = (ClampMin = "100.0", ClampMax = "10000.0"), meta = (AllowPrivateAccess = "true"))
     float MaximumCameraBoomLength = 3000.0f;
+
+    // Implement The Generic Team Interface
+    FGenericTeamId TeamId;
+    FGenericTeamId GetGenericTeamId() const;
 
 protected:
     bool bCanSetNewLocation = true;

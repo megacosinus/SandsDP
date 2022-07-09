@@ -14,6 +14,13 @@ ASandsDPPlayerController::ASandsDPPlayerController()
     bShouldPerformFullTickWhenPaused = true;
     if (GetWorld())
         GetWorld()->bIsCameraMoveableWhenPaused = true; // Prevent bluring camera when paused
+
+    TeamId = FGenericTeamId(0); // to be enemy for AI
+}
+
+FGenericTeamId ASandsDPPlayerController::GetGenericTeamId() const
+{
+    return TeamId;
 }
 
 void ASandsDPPlayerController::SetupInputComponent()

@@ -16,4 +16,7 @@ class SANDS_DP_API ASandsDPAIControllerGlobal : public ASandsDPAIController
 
 protected:
     virtual void OnPossess(APawn* InPawn) override;
+
+public:
+    ETeamAttitude::Type GetTeamAttitudeTowards(const AActor& Other) const override;
 };
