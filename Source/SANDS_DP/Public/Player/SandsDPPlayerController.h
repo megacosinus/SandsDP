@@ -21,7 +21,7 @@ private:
     UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = Camera, meta = (ClampMin = "100.0", ClampMax = "10000.0"), meta = (AllowPrivateAccess = "true"))
     float MinimumCameraBoomLength = 300.0f;
 
-    UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = Camera, meta = (ClampMin = "100.0", ClampMax = "10000.0"), meta = (AllowPrivateAccess = "true"))
+    UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = Camera, meta = (ClampMin = "100.0", ClampMax = "20000.0"), meta = (AllowPrivateAccess = "true"))
     float MaximumCameraBoomLength = 3000.0f;
 
     // Implement The Generic Team Interface
