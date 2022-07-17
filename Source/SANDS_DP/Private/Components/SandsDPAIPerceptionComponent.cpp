@@ -6,6 +6,8 @@
 #include "Perception/AISense_Sight.h"
 #include "Perception/AISense_Damage.h"
 
+DEFINE_LOG_CATEGORY_STATIC(LogPercComponent, All, All);
+
 AActor* USandsDPAIPerceptionComponent::GetClosestEnemy() const
 {
     TArray<AActor*> PercieveActors; // local array, where we will put all Sight actors
@@ -34,11 +36,21 @@ AActor* USandsDPAIPerceptionComponent::GetClosestEnemy() const
 
         const auto PercievePawn = Cast<APawn>(PercieveActor);
 
-        const auto CurrentDistance = (PercieveActor->GetActorLocation() - Pawn->GetActorLocation()).Size();
-        if (CurrentDistance < BestDistance)
+        // Need to ensure that Pawn not neutral:
+        if (const auto TeamAgent = Cast<const IGenericTeamAgentInterface>(PercievePawn->GetController()))
         {
-            BestDistance = CurrentDistance;
-            BestPawn = PercieveActor;
+            FGenericTeamId TeamID = TeamAgent->GetGenericTeamId();
+
+            if (TeamID != 255) // 255 is for neutral pawns
+            {
+                const auto CurrentDistance = (PercieveActor->GetActorLocation() - Pawn->GetActorLocation()).Size();
+
+                if (CurrentDistance < BestDistance)
+                {
+                    BestDistance = CurrentDistance;
+                    BestPawn = PercieveActor;
+                }
+            }
         }
     }
 

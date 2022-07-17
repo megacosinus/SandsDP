@@ -7,11 +7,18 @@
 #include "SandsDPPlayerControllerLocal.generated.h"
 
 /**
- * 
+ *
  */
 UCLASS()
 class SANDS_DP_API ASandsDPPlayerControllerLocal : public ASandsDPPlayerController
 {
-	GENERATED_BODY()
-	
+    GENERATED_BODY()
+
+public:
+    ASandsDPPlayerControllerLocal();
+
+private:
+    // Implement The Generic Team Interface
+    FGenericTeamId TeamId;
+    FGenericTeamId GetGenericTeamId() const;
 };
