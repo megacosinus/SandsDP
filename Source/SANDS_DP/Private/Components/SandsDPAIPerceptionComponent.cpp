@@ -32,7 +32,7 @@ AActor* USandsDPAIPerceptionComponent::GetClosestEnemy() const
 
     for (const auto PercieveActor : PercieveActors)
     {
-        // const auto HealthComponent = SandsDPUtils::GetSandsDPPlayerComponent<USTUHealthComponent>(PercieveActor);
+        // const auto HealthComponent = SandsDPUtils::GetSandsDPPlayerComponent<SandsDPHealthComponent>(PercieveActor);
 
         const auto PercievePawn = Cast<APawn>(PercieveActor);
 

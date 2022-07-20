@@ -2,6 +2,7 @@
 
 #include "AI/SandsDPAICharacterLocal.h"
 #include "AI/SandsDPAIControllerLocal.h"
+#include "Weapons/SandsDPBaseWeapon.h"
 
 ASandsDPAICharacterLocal::ASandsDPAICharacterLocal() {}
 
@@ -21,5 +22,20 @@ void ASandsDPAICharacterLocal::BeginPlay()
     else if (SDPTeamAttitude == ESDPTeamAttitude::Enemy)
     {
         AIController->SetTeam(2);
+    }
+
+    SpawnWeapon();
+}
+
+void ASandsDPAICharacterLocal::SpawnWeapon()
+{
+    if (!GetWorld())
+        return;
+
+    const auto Weapon = GetWorld()->SpawnActor<ASandsDPBaseWeapon>(WeaponClass);
+    if (Weapon)
+    {
+        FAttachmentTransformRules AttachmentRules(EAttachmentRule::SnapToTarget, false); // simulation physical bodies to false
+        Weapon->AttachToComponent(GetMesh(), AttachmentRules, "WeaponSocket");
     }
 }

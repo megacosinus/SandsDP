@@ -13,6 +13,8 @@ enum class ESDPTeamAttitude : uint8
     Enemy
 };
 
+class ASandsDPBaseWeapon;
+
 UCLASS()
 class SANDS_DP_API ASandsDPAICharacterLocal : public ASandsDPAICharacter
 {
@@ -25,5 +27,11 @@ public:
     ESDPTeamAttitude SDPTeamAttitude = ESDPTeamAttitude::Ally;
 
 protected:
+    UPROPERTY(EditDefaultsOnly, Category = "Weapon")
+    TSubclassOf<ASandsDPBaseWeapon> WeaponClass;
+
     virtual void BeginPlay() override;
+
+private:
+    void SpawnWeapon();
 };
