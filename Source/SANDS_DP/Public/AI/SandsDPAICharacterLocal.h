@@ -14,6 +14,8 @@ enum class ESDPTeamAttitude : uint8
 };
 
 class ASandsDPBaseWeapon;
+class USandsDPHealthComponent;
+class UTextRenderComponent;
 
 UCLASS()
 class SANDS_DP_API ASandsDPAICharacterLocal : public ASandsDPAICharacter
@@ -29,6 +31,13 @@ public:
 protected:
     UPROPERTY(EditDefaultsOnly, Category = "Weapon")
     TSubclassOf<ASandsDPBaseWeapon> WeaponClass;
+
+    UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Components")
+    USandsDPHealthComponent* HealthComponent;
+
+    // only for debug:
+    UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Components")
+    UTextRenderComponent* HealthTextComponent;
 
     virtual void BeginPlay() override;
 

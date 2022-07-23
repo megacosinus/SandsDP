@@ -16,3 +16,7 @@ enum class ESandsDPMatchState : uint8
 
 /** Delegate about changed game state */
 DECLARE_MULTICAST_DELEGATE_OneParam(FOnMatchStateChangedSignature, ESandsDPMatchState);
+
+/** Health */
+DECLARE_MULTICAST_DELEGATE(FOnDeathSignature);
+DECLARE_MULTICAST_DELEGATE_TwoParams(FOnHealthChangedSignature, float, float);
