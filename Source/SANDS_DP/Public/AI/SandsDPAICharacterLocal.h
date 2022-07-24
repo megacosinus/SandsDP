@@ -13,8 +13,8 @@ enum class ESDPTeamAttitude : uint8
     Enemy
 };
 
-class ASandsDPBaseWeapon;
 class USandsDPHealthComponent;
+class USandsDPWeaponComponent;
 class UTextRenderComponent;
 
 UCLASS()
@@ -29,18 +29,15 @@ public:
     ESDPTeamAttitude SDPTeamAttitude = ESDPTeamAttitude::Ally;
 
 protected:
-    UPROPERTY(EditDefaultsOnly, Category = "Weapon")
-    TSubclassOf<ASandsDPBaseWeapon> WeaponClass;
-
     UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Components")
     USandsDPHealthComponent* HealthComponent;
+
+    UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Components")
+    USandsDPWeaponComponent* WeaponComponent;
 
     // only for debug:
     UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Components")
     UTextRenderComponent* HealthTextComponent;
 
     virtual void BeginPlay() override;
-
-private:
-    void SpawnWeapon();
 };

@@ -3,6 +3,8 @@
 #include "Weapons/SandsDPBaseWeapon.h"
 #include "Components/SkeletalMeshComponent.h"
 
+DEFINE_LOG_CATEGORY_STATIC(LogBaseWeapon, All, All);
+
 // Sets default values
 ASandsDPBaseWeapon::ASandsDPBaseWeapon()
 {
@@ -17,4 +19,9 @@ ASandsDPBaseWeapon::ASandsDPBaseWeapon()
 void ASandsDPBaseWeapon::BeginPlay()
 {
     Super::BeginPlay();
+}
+
+void ASandsDPBaseWeapon::Fire()
+{
+    UE_LOG(LogBaseWeapon, Display, TEXT("Fire!"));
 }
