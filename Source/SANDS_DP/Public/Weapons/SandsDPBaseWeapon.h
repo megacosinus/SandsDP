@@ -17,12 +17,31 @@ public:
     // Sets default values for this actor's properties
     ASandsDPBaseWeapon();
 
-    virtual void Fire();
+    virtual void StartFire();
+    virtual void StopFire();
 
 protected:
     UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Components")
     USkeletalMeshComponent* WeaponMesh;
 
+    UPROPERTY(VisibleAnywhere, BlueprintReadWrite)
+    FName MuzzleSocketName = "MuzzleSocket";
+
+    UPROPERTY(VisibleAnywhere, BlueprintReadWrite)
+    float TraceMaxDistance = 1500.0f;
+
+    UPROPERTY(VisibleAnywhere, BlueprintReadWrite)
+    float TimeBetweenShots = 2.0f;
+
+    UPROPERTY(VisibleAnywhere, BlueprintReadWrite)
+    float BulletSpread = 1.5f;
+
     // Called when the game starts or when spawned
     virtual void BeginPlay() override;
+
+    void MakeShot();
+    void MakeHit(FHitResult& HitResult, const FVector& TraceStart, const FVector& TraceEnd);
+
+private:
+    FTimerHandle ShotTimerHandle;
 };

@@ -10,11 +10,18 @@ USandsDPWeaponComponent::USandsDPWeaponComponent()
     PrimaryComponentTick.bCanEverTick = false;
 }
 
-void USandsDPWeaponComponent::Fire()
+void USandsDPWeaponComponent::StartFire()
 {
     if (!CurrentWeapon)
         return;
-    CurrentWeapon->Fire();
+    CurrentWeapon->StartFire();
+}
+
+void USandsDPWeaponComponent::StopFire()
+{
+    if (!CurrentWeapon)
+        return;
+    CurrentWeapon->StopFire();
 }
 
 // Called when the game starts
