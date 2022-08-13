@@ -28,6 +28,7 @@ void ASandsDPBaseWeapon::StartFire()
 {
     UE_LOG(LogBaseWeapon, Display, TEXT("StartFire!"));
 
+    MakeShot();
     GetWorldTimerManager().SetTimer(ShotTimerHandle, this, &ASandsDPBaseWeapon::MakeShot, TimeBetweenShots, true);
 }
 
@@ -45,6 +46,7 @@ void ASandsDPBaseWeapon::MakeShot()
     const FVector TraceStart = SocketTransform.GetLocation();
     const auto HalfRad = FMath::DegreesToRadians(BulletSpread);
     const FVector ShootDirection = FMath::VRandCone(SocketTransform.GetRotation().GetForwardVector(), HalfRad); // Random vector from cone
+    // const FVector ShootDirection = FMath::VRandCone(GetOwner()->GetActorForwardVector(), HalfRad); // Random vector from cone
     const FVector TraceEnd = TraceStart + ShootDirection * TraceMaxDistance;
 
     FHitResult HitResult;
