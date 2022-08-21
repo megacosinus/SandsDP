@@ -3,6 +3,9 @@
 #include "Weapons/SandsDPBaseWeapon.h"
 #include "Components/SkeletalMeshComponent.h"
 #include "Engine/World.h"
+#include "AI/SandsDPAIControllerLocal.h"
+#include "AI/SandsDPAICharacterLocal.h"
+#include "AIController.h"
 #include "DrawDebugHelpers.h"
 
 DEFINE_LOG_CATEGORY_STATIC(LogBaseWeapon, All, All);
@@ -28,6 +31,20 @@ void ASandsDPBaseWeapon::StartFire()
 {
     UE_LOG(LogBaseWeapon, Display, TEXT("StartFire!"));
 
+    // only AI players on local map will shoot
+    /*const auto Player = Cast<ASandsDPAICharacterLocal>(GetOwner());
+    if (!Player)
+    {
+        UE_LOG(LogBaseWeapon, Display, TEXT("Did not get AI Character"));
+        StopFire();
+        return;
+    }
+
+    if (Player->Aiming)
+        return;
+
+    Player->Aiming = true;*/
+
     MakeShot();
     GetWorldTimerManager().SetTimer(ShotTimerHandle, this, &ASandsDPBaseWeapon::MakeShot, TimeBetweenShots, true);
 }
@@ -35,6 +52,16 @@ void ASandsDPBaseWeapon::StartFire()
 void ASandsDPBaseWeapon::StopFire()
 {
     UE_LOG(LogBaseWeapon, Display, TEXT("StopFire!"));
+    // only AI players on local map will shoot
+    /*const auto Player = Cast<ASandsDPAICharacterLocal>(GetOwner());
+    if (!Player)
+    {
+        UE_LOG(LogBaseWeapon, Display, TEXT("Did not get AI Character"));
+        GetWorldTimerManager().ClearTimer(ShotTimerHandle);
+        return;
+    }
+
+    Player->Aiming = false;*/
     GetWorldTimerManager().ClearTimer(ShotTimerHandle);
 }
 

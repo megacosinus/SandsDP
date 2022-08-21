@@ -4,6 +4,7 @@
 #include "AIController.h"
 #include "BehaviorTree/BlackboardComponent.h"
 #include "Components/SandsDPWeaponComponent.h"
+#include "AI/SandsDPAIControllerLocal.h"
 
 USandsDPFireService::USandsDPFireService()
 {
@@ -14,15 +15,28 @@ void USandsDPFireService::TickNode(UBehaviorTreeComponent& OwnerComp, uint8* Nod
 {
     const auto Controller = OwnerComp.GetAIOwner();
     const auto Blackboard = OwnerComp.GetBlackboardComponent();
+    const auto AIControllerLocal = Cast<ASandsDPAIControllerLocal>(Controller);
 
-    const bool HasAim = Blackboard && Blackboard->GetValueAsObject(EnemyActorKey.SelectedKeyName);
+    const bool CanStartShooting = Blackboard && Blackboard->GetValueAsObject(EnemyActorKey.SelectedKeyName);
 
-    if (Controller)
+    if (Controller && AIControllerLocal)
     {
         const auto WeaponComponent = Controller->GetPawn()->FindComponentByClass<USandsDPWeaponComponent>();
         if (WeaponComponent)
         {
-            HasAim ? WeaponComponent->StartFire() : WeaponComponent->StopFire();
+            if (CanStartShooting)
+            {
+                if (!AIControllerLocal->Aiming)
+                {
+                    AIControllerLocal->Aiming = true;
+                    WeaponComponent->StartFire();
+                }
+            }
+            else
+            {
+                AIControllerLocal->Aiming = false;
+                WeaponComponent->StopFire();
+            }
         }
     }
 

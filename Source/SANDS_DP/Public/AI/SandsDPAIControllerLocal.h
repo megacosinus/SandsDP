@@ -17,6 +17,9 @@ class SANDS_DP_API ASandsDPAIControllerLocal : public ASandsDPAIController
 public:
     FGenericTeamId TeamId;
 
+    UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
+    bool Aiming = false;
+
     UFUNCTION(BlueprintCallable, DisplayName = "SetTeamID", Category = "AI")
     void SetTeam(uint8 const& id) { TeamId = FGenericTeamId(id); }
 
