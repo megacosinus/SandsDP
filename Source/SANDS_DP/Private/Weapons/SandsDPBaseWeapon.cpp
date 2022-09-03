@@ -31,37 +31,12 @@ void ASandsDPBaseWeapon::StartFire()
 {
     UE_LOG(LogBaseWeapon, Display, TEXT("StartFire!"));
 
-    // only AI players on local map will shoot
-    /*const auto Player = Cast<ASandsDPAICharacterLocal>(GetOwner());
-    if (!Player)
-    {
-        UE_LOG(LogBaseWeapon, Display, TEXT("Did not get AI Character"));
-        StopFire();
-        return;
-    }
-
-    if (Player->Aiming)
-        return;
-
-    Player->Aiming = true;*/
-
-    MakeShot();
     GetWorldTimerManager().SetTimer(ShotTimerHandle, this, &ASandsDPBaseWeapon::MakeShot, TimeBetweenShots, true);
 }
 
 void ASandsDPBaseWeapon::StopFire()
 {
     UE_LOG(LogBaseWeapon, Display, TEXT("StopFire!"));
-    // only AI players on local map will shoot
-    /*const auto Player = Cast<ASandsDPAICharacterLocal>(GetOwner());
-    if (!Player)
-    {
-        UE_LOG(LogBaseWeapon, Display, TEXT("Did not get AI Character"));
-        GetWorldTimerManager().ClearTimer(ShotTimerHandle);
-        return;
-    }
-
-    Player->Aiming = false;*/
     GetWorldTimerManager().ClearTimer(ShotTimerHandle);
 }
 
@@ -81,6 +56,7 @@ void ASandsDPBaseWeapon::MakeShot()
 
     if (HitResult.bBlockingHit)
     {
+        MakeDamage(HitResult);
         DrawDebugSphere(GetWorld(), HitResult.ImpactPoint, 10.0f, 24, FColor::Red, false, 5.0f);
 
         UE_LOG(LogBaseWeapon, Display, TEXT("Bone: %s"), *HitResult.BoneName.ToString());
@@ -97,4 +73,21 @@ void ASandsDPBaseWeapon::MakeHit(FHitResult& HitResult, const FVector& TraceStar
     CollisionParams.AddIgnoredActor(GetOwner());
 
     GetWorld()->LineTraceSingleByChannel(HitResult, TraceStart, TraceEnd, ECollisionChannel::ECC_Visibility, CollisionParams);
+}
+
+void ASandsDPBaseWeapon::MakeDamage(const FHitResult& HitResult)
+{
+    const auto DamagedActor = HitResult.GetActor();
+    if (!DamagedActor)
+        return;
+
+    FPointDamageEvent PointDamageEvent;
+    PointDamageEvent.HitInfo = HitResult;
+    DamagedActor->TakeDamage(DamageAmount, PointDamageEvent, GetController(), this);
+}
+
+AController* ASandsDPBaseWeapon::GetController() const
+{
+    const auto Pawn = Cast<APawn>(GetOwner());
+    return Pawn ? Pawn->GetController() : nullptr;
 }

@@ -39,5 +39,11 @@ protected:
     UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Components")
     UTextRenderComponent* HealthTextComponent;
 
+    UPROPERTY(EditDefaultsOnly, Category = "Damage")
+    float LifeSpanOnDeath = 5.0f;
+
     virtual void BeginPlay() override;
+
+    void OnHealthChanged(float Health, float HealthDelta);
+    void OnDeath();
 };
